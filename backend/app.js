@@ -1,8 +1,9 @@
+// 
+
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { dbConnection } from "./database/dbConnection.js";
 import jobRouter from "./routes/jobRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import applicationRouter from "./routes/applicationRoutes.js";
@@ -13,31 +14,14 @@ import fileUpload from "express-fileupload";
 
 const app = express();
 
-// ---------- ✅ FIXED CORS CONFIG ---------- //
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://role-based-job-portal.vercel.app"
-  
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log("❌ CORS blocked request from:", origin);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+// ✅ SIMPLE & SAFE CORS
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://role-based-job-portal.vercel.app"
+  ],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-app.use(cors(corsOptions));
-// Preflight fix
-app.options("*", cors(corsOptions));
-// ------------------------------------------ //
+}));
 
 app.use(cookieParser());
 app.use(express.json());
@@ -50,15 +34,12 @@ app.use(
   })
 );
 
-// API Routes
+// Routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/application", applicationRouter);
 
-// Database connection
-dbConnection();
-
-// Global error middleware
+// Error middleware
 app.use(errorMiddleware);
 
 export default app;
