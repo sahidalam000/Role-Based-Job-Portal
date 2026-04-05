@@ -16,6 +16,7 @@ const app = express();
 // ---------- ✅ FIXED CORS CONFIG ---------- //
 const allowedOrigins = [
   "http://localhost:5173",
+  "https://role-based-job-portal.vercel.app"
   
 ];
 
