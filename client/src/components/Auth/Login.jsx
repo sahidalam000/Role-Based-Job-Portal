@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://job-potral-911b.onrender.com/api/v1/user/login",
+        "https://role-based-job-portal.onrender.com/api/v1/user/login",
         { email, password, role },
         {
           headers: {
