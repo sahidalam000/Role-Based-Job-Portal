@@ -23,11 +23,11 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "https://role-based-job-portal.onrender.com/api/v1/user/getuser",
-          {
-            withCredentials: true,
-          }
-        );
+  "https://role-based-job-portal.onrender.com/api/v1/user/getuser",
+  {
+    withCredentials: true, // 🔥 REQUIRED
+  }
+);
         setUser(response.data.user);
         setIsAuthorized(true);
       } catch (error) {
