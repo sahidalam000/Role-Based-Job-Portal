@@ -16,7 +16,7 @@ const app = express();
 // ---------- ✅ FIXED CORS CONFIG ---------- //
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://job-potral-2.vercel.app", // deployed frontend
+  
 ];
 
 const corsOptions = {
